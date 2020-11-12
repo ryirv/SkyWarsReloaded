@@ -18,6 +18,11 @@ public class Party {
 	private ArrayList<UUID> invited;
 
 	public Party(Player player, String partyName) {
+		
+		if(CheckParty(player)) {
+			sendPartyMessage(new Messaging.MessageFormatter().setVariable("player", player.getName()).format("party.alreadyinparty"));
+			return;
+		
 		leader = player.getUniqueId();
 		name = partyName;
 		members = new ArrayList<>();
@@ -81,11 +86,24 @@ public class Party {
 		return members;
 	}
 	
+	public boolean CheckParty(Player ply) {
+		
+		if(getParty(ply) != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public int getSize() {
 		return members.size();
 	}
 
 	public void invite(Player player) {
+		if(CheckParty(player)) {
+			sendPartyMessage(new Messaging.MessageFormatter().setVariable("player", player.getName()).format("party.alreadyinparty"));
+			return;
+		}
 		final UUID invite = player.getUniqueId();
 		this.invited.add(invite);
 		new BukkitRunnable() {

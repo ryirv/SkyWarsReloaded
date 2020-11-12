@@ -56,6 +56,10 @@ public class Party {
 	}
 	
 	private void addMember(Player player) {
+		if(CheckParty(player)) {
+			sendPartyMessage(new Messaging.MessageFormatter().setVariable("player", player.getName()).format("party.alreadyinparty"));
+			return;
+	}
 		if (!members.contains(player.getUniqueId())) {
 			this.sendPartyMessage(new Messaging.MessageFormatter().setVariable("player", player.getName()).format("party.joined"));
 			members.add(player.getUniqueId());

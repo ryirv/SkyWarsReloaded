@@ -94,9 +94,9 @@ public class Party {
 		
 		if(getParty(ply) != null) {
 			return true;
-		} else {
-			return false;
-		}
+		} 
+		
+		return false;
 	}
 	
 	public int getSize() {
